@@ -1,0 +1,157 @@
+{% extends 'base.html' %}
+{% load humanize %}
+
+{% block content %}
+    <div>
+        <div id="hero">
+            <div>
+            <h1 class="fw-bold">YouTube Demo Application</h1>
+            <h5 class="fw-light">Watch, like and upload your own videos!</h5>
+            </div>
+        </div>
+        <br>
+        <br>
+    </div>
+
+    {% if request.user.is_authenticated %}
+        <br>
+        <div>
+            <h1 class="fw-normal text-center">Welcome {{ request.user.username }}!</h1>
+            <h5 class="fw-light text-center">Your uploaded videos.</h5>
+        </div>
+        <br>
+        <br>
+    {% endif %}
+
+    <div class="container" style="margin-top: 0px; margin-bottom: 30px;">
+        <div class="row">
+            <div class="col-lg-4">
+            </div>
+            <div class="col-lg-4">
+                <div class="d-flex justify-content-center">
+                    <a href="{% url 'youtube:video_new' %}" class="btn btn-success text-center" style="font-size: 22px;">&nbsp;<i class="bi bi-plus-lg" style="font-size: 20px;"></i></span>&nbsp;Add a new video&nbsp;</a>
+                </div>
+            </div>
+            <div class="col-lg-4">
+            </div>
+        </div>
+    </div>
+
+    {% if videos %}
+    <div class="container">
+        {% for video in videos %}
+        <div class="row">
+            <div class="col-lg-4">
+                {% if video.col1 %}
+                    <div class="card video-content">
+                        <a href="{% url 'youtube:video_view' video.col1.id %}">
+                            <div class="d-flex justify-content-center" style="">
+<!--                                <iframe width="560" height="280" src={{ video.col1.source }} title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>-->
+                                <img class="card-img-top" src={{ video.col1.source }} title="YouTube Video" alt="YouTube Video" width="560" height="280"/>
+                            </div>
+                        </a>
+                        <div class="card-body">
+                            {% if video.col1.title|length <= 40 %}
+                                <h4 class="card-title" style="font-size: 20px; padding: 0px; margin: 0px;">{{ video.col1.title }}, You Must Watch This</h4>
+                            {% else %}
+                                <h4 class="card-title" style="font-size: 20px; padding: 0px; margin: 0px;">{{ video.col1.title }}</h4>
+                            {% endif %}
+                            <p class="text-muted" style="font-size: 14px; padding: 0px; margin-top: 10px;">Posted by {{ video.col1.user }} {{ video.col1.added|timesince }} ago</p>
+                            <small class="card-text">{{ video.col1.description }}</small>
+                        </div>
+                        <div class="card-footer d-flex justify-content-center">
+                            <div class="container" style="padding: 0px; margin: 0px;">
+                                <div class="row">
+                                    <div class="col-lg-4" >
+                                        <p class="fw-normal text-body text-start" style="font-size: 15px; padding: 0px; margin: 0px;"><span class="bi bi-person-video2" style="font-size: 18px;"></span>{{ video.col1.views }} views</p>
+                                    </div>
+                                    <div class="col-lg-4" >
+                                        <p class="fw-normal text-body text-center" style="font-size: 15px; padding: 0px; margin: 0px;"><a href="{% url 'youtube:video_edit' video.col1.id %}" class="bi bi-pen text-dark" style="font-size: 18px;"></a>&nbsp;&#8226;&nbsp;Edit</p>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <p class="fw-normal text-body text-end" style="font-size: 15px; padding: 0px; margin: 0px;"><a href="{% url 'youtube:video_delete' video.col1.id %}" class="bi bi-trash text-dark" style="font-size: 18px;"></a>&nbsp;&#8226;&nbsp;Delete</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+            <div class="col-lg-4">
+                {% if video.col2 %}
+                    <div class="card video-content">
+                        <a href="{% url 'youtube:video_view' video.col2.id %}">
+                            <div class="d-flex justify-content-center" style="">
+    <!--                            <iframe width="560" height="280" src={{ video.col2.source }} title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>-->
+                                <img class="card-img-top" src={{ video.col2.source }} title="YouTube Video" alt="YouTube Video" width="560" height="280"/>
+                            </div>
+                        </a>
+                        <div class="card-body">
+                            {% if video.col2.title|length <= 40 %}
+                                <h4 class="card-title" style="font-size: 20px; padding: 0px; margin: 0px;">{{ video.col2.title }}, You Must Watch This</h4>
+                            {% else %}
+                                <h4 class="card-title" style="font-size: 20px; padding: 0px; margin: 0px;">{{ video.col2.title }}</h4>
+                            {% endif %}
+                            <p class="text-muted" style="font-size: 14px; padding: 0px; margin-top: 10px;">Posted by {{ video.col2.user }} {{ video.col2.added|timesince }} ago</p>
+                            <small class="card-text">{{ video.col2.description }}</small>
+                        </div>
+                        <div class="card-footer d-flex justify-content-center">
+                            <div class="container" style="padding: 0px; margin: 0px;">
+                                <div class="row">
+                                    <div class="col-lg-4" >
+                                        <p class="fw-normal text-body text-start" style="font-size: 15px; padding: 0px; margin: 0px;"><span class="bi bi-person-video2" style="font-size: 18px;"></span>{{ video.col2.views }} views</p>
+                                    </div>
+                                    <div class="col-lg-4" >
+                                        <p class="fw-normal text-body text-center" style="font-size: 15px; padding: 0px; margin: 0px;"><a href="{% url 'youtube:video_edit' video.col2.id %}" class="bi bi-pen text-dark" style="font-size: 18px;"></a>&nbsp;&#8226;&nbsp;Edit</p>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <p class="fw-normal text-body text-end" style="font-size: 15px; padding: 0px; margin: 0px;"><a href="{% url 'youtube:video_delete' video.col2.id %}" class="bi bi-trash text-dark" style="font-size: 18px;"></a>&nbsp;&#8226;&nbsp;Delete</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+            <div class="col-lg-4">
+                {% if video.col3 %}
+                    <div class="card video-content">
+                        <a href="{% url 'youtube:video_view' video.col3.id %}">
+                            <div class="d-flex justify-content-center" style="">
+    <!--                            <iframe width="560" height="280" src={{ video.col3.source }} title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>-->
+                                <img class="card-img-top" src={{ video.col3.source }} title="YouTube Video" alt="YouTube Video" width="560" height="280"/>
+                            </div>
+                        </a>
+                        <div class="card-body">
+                            {% if video.col3.title|length <= 40 %}
+                                <h4 class="card-title" style="font-size: 20px; padding: 0px; margin: 0px;">{{ video.col3.title }}, You Must Watch This</h4>
+                            {% else %}
+                                <h4 class="card-title" style="font-size: 20px; padding: 0px; margin: 0px;">{{ video.col3.title }}</h4>
+                            {% endif %}
+                            <p class="text-muted" style="font-size: 14px; padding: 0px; margin-top: 10px;">Posted by {{ video.col3.user }} {{ video.col3.added|timesince }} ago</p>
+                            <small class="card-text">{{ video.col3.description }}</small>
+                        </div>
+                        <div class="card-footer d-flex justify-content-center">
+                            <div class="container" style="padding: 0px; margin: 0px;">
+                                <div class="row">
+                                    <div class="col-lg-4" >
+                                        <p class="fw-normal text-body text-start" style="font-size: 15px; padding: 0px; margin: 0px;"><span class="bi bi-person-video2" style="font-size: 18px;"></span>{{ video.col3.views }} views</p>
+                                    </div>
+                                    <div class="col-lg-4" >
+                                        <p class="fw-normal text-body text-center" style="font-size: 15px; padding: 0px; margin: 0px;"><a href="{% url 'youtube:video_edit' video.col3.id %}" class="bi bi-pen text-dark" style="font-size: 18px;"></a>&nbsp;&#8226;&nbsp;Edit</p>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <p class="fw-normal text-body text-end" style="font-size: 15px; padding: 0px; margin: 0px;"><a href="{% url 'youtube:video_delete' video.col3.id %}" class="bi bi-trash text-dark" style="font-size: 18px;"></a>&nbsp;&#8226;&nbsp;Delete</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+{% endblock %}

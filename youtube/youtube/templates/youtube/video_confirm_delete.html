@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% load humanize %}
+
+{% block content %}
+    <div>
+        <div id="video">
+            <div>
+<!--            <h1 class="fw-bold">YouTube Demo Application</h1>-->
+<!--            <h5 class="fw-light">Watch, like and upload your own videos!</h5>-->
+                <iframe width="780" height="470" src={{ video.source }} title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                <div class="video_details">
+                    <p class="fw-normal text-light" style="font-size: 20px; padding: 0px; margin: 0px;">{{ video.title }}</p>
+                    <p class="fw-normal text-light" style="font-size: 12px; padding: 0px; margin: 0px;">Posted by {{ video.user }} {{ video.added|timesince }} ago</p>
+                    <p class="fw-light text-light" style="font-size: 14px; padding: 0px; margin-top: 10px;">{{ video.description }}</p>
+                    <div class="container">
+                        <input type="hidden" name="pk" value={{video.id}} id='pk'>
+                        <div class="row">
+                            <div class="col-lg-4">
+                                <p class="fw-normal text-light text-center" style="font-size: 15px;"><span class="bi bi-hand-thumbs-up" style="font-size: 18px;"></span><span>&nbsp;&#8226;&nbsp;{{ video.likes }} likes</span></p>
+                            </div>
+                            <div class="col-lg-4">
+                                <p class="fw-normal text-light text-center" style="font-size: 15px;"><span class="bi bi-person-video2" style="font-size: 18px;"></span>&nbsp;{{ video.views }} views&nbsp;</p>
+                            </div>
+                            <div class="col-lg-4" style="padding: 0px; margin: 0px;">
+                                <form method="post">
+                                    {% csrf_token %}
+                                    <div class="d-flex justify-content-end">
+                                        <button type="submit" class="btn btn-danger text-center" style="font-size: 18px; margin-bottom: 16px;">&nbsp;Continue to delete&nbsp;</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br>
+        <br>
+    </div>
+
+{% endblock %}

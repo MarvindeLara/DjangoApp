@@ -1,0 +1,119 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block content %}
+    <div>
+        <div id="hero">
+            <div>
+            <h1 class="fw-bold">YouTube Demo Application</h1>
+            <h5 class="fw-light">Watch, like and upload your own videos!</h5>
+            </div>
+        </div>
+        <br>
+        <br>
+        <br>
+
+        <form method="post" action=".">
+            {% csrf_token %}
+
+            <div class="container">
+              <div class="row">
+                  <div class="col-lg-4">
+                    </div>
+                      <div class="col-lg-4 d-flex justify-content-center">
+                          <ul class="flashes text-success">
+                          {% for error in form.non_field_errors %}
+                              <li>{{error}}</li>
+                          {% endfor %}
+                          {% for error in form.username.errors %}
+                              <li>{{error}}</li>
+                          {% endfor %}
+                          {% for error in form.email.errors %}
+                              <li>{{error}}</li>
+                          {% endfor %}
+                          {% for error in form.password1.errors %}
+                              <li>{{error}}</li>
+                          {% endfor %}
+                          {% for error in form.password2.errors %}
+                              <li>{{error}}</li>
+                          {% endfor %}
+                          </ul>
+                      </div>
+                    <div class="col-lg-4">
+                  </div>
+              </div>
+            </div>
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-4">
+                    </div>
+                    <div class="col-lg-4" style="background-color: #F7F8F9; padding-top: 22px; padding-left: 20px; padding-right: 20px; padding-bottom: 10px; border-top-left-radius: 5px; border-top-right-radius: 5px;">
+                        <div class="input-group">
+                            <span class="input-group-text">
+                                <span class="bi bi-person"></span>
+                            </span>
+                            <input type="username" class="form-control" placeholder="Username" required name="username">
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-4">
+                    </div>
+                    <div class="col-lg-4" style="background-color: #F7F8F9; padding-top: 10px; padding-left: 20px; padding-right: 20px; padding-bottom: 10px;">
+                        <div class="input-group">
+                            <span class="input-group-text">
+                                <span class="bi bi-envelope"></span>
+                            </span>
+                            <input type="email" class="form-control" placeholder="Email" required name="email">
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-4">
+                    </div>
+                    <div class="col-lg-4" style="background-color: #F7F8F9; padding-top: 10px; padding-left: 20px; padding-right: 20px; padding-bottom: 10px;">
+                        <div class="input-group">
+                            <span class="input-group-text">
+                                <span class="bi bi-key"></span>
+                            </span>
+                            <input type="password" class="form-control " placeholder="Password" required name="password1">
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-4">
+                    </div>
+                    <div class="col-lg-4" style="background-color: #F7F8F9; padding-top: 10px; padding-left: 20px; padding-right: 20px; padding-bottom: 10px;">
+                        <div class="input-group">
+                            <span class="input-group-text">
+                                <span class="bi bi-key"></span>
+                            </span>
+                            <input type="password" class="form-control " placeholder="Repeat password" required name="password2">
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-4">
+                    </div>
+                    <div class="col-lg-4" style="background-color: #F7F8F9; padding-top: 10px; padding-left: 20px; padding-right: 20px; padding-bottom: 22px; border-bottom-left-radius: 5px; border-bottom-right-radius: 5px;">
+                        <div class="input-group">
+                            <button type="submit" class="btn btn-primary">{% trans 'Submit' %}</button>
+                            <button type="reset" class="btn btn-danger">Reset</button>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                    </div>
+                </div>
+            </div>
+        </form>
+        <br>
+        <br>
+    </div>
+{% endblock %}
