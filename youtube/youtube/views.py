@@ -52,19 +52,6 @@ def index(request):
     if row_video['col1']:  # for last incomplete row
         all_videos.append(row_video)
 
-    # if request.method == 'GET' and 'key' in request.GET:
-    #     videos = {}
-    #     html = ''
-    #     #################################################################################
-    #     # create the new html text here that will replace <div id="videos"> contents
-    #     html = html + """<h1 class ="fw-normal text-center">Welcome</h1>"""
-    #     #################################################################################
-    #     videos['html'] = html
-    #     return HttpResponse(
-    #         json.dumps(videos, default=str),
-    #         content_type="application/json"
-    #     )
-    # else:
     return render(request, 'youtube/index.html', {'videos': all_videos})
 
 
